@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>音乐播放器</title>
+    <style>
+        body,
+        ul,
+        li,
+        a,
+        p,
+        h1,
+        h2 {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+            text-decoration: none;
+        }
+
+        html {
+            width: 100%;
+            height: 100%;
+        }
+
+        body {
+            width: 100%;
+            height: 100%;
+            background: url('./img/3.jpg');
+            background-repeat: no-repeat;
+            background-size: 100% 100%;
+            background-position: center bottom;
+        }
+
+        .wrapper {
+            width:600px;
+            margin: 50px auto 0;
+            /* border: 2px solid green; */
+        }
+
+        .main {
+            width: 100%;
+            text-align: center;
+
+        }
+
+        .rotate {
+            animation: rotate 10s linear infinite forwards;
+        }
+
+        @keyframes rotate {
+            0% {
+                transform: rotateZ(0deg);
+            }
+
+            100% {
+                transform: rotateZ(360deg);
+            }
+        }
+
+        .main img {
+            width: 150px;
+            height: 150px;
+            border: 20px solid rgba(136, 106, 247, 0.7);
+            border-radius: 50%;
+        }
+
+        .tool {
+            position: relative;
+            width: 100%;
+            height: 60px;
+            background: rgba(0, 0, 0, 0.3);
+            margin-top: 80px;
+            border-radius: 20px;
+            /* border: 3px solid green; */
+        }
+        .tool>div {
+            top: 50%;
+            margin-top: -15px;
+        }
+        .prev{
+            position:absolute;
+            left:20px;
+            width:30px;
+            height: 30px;
+        }
+        .btn {
+            position: absolute;
+            left: 69px;
+            width: 30px;
+            height: 30px;
+        }
+        .next{
+            position:absolute;
+            left:117px;
+            width: 30px;
+            height: 30px;
+        }
+
+        .tool span {
+            color: #fff;
+            font-size: 30px;
+        }
+
+        .volume {
+            position: absolute;
+            right: 30px;
+            width: 30px;
+            height: 30px;
+            /* border:3px solid green; */
+        }
+
+        .active-box {
+            display: none;
+            position: absolute;
+            top: -14px;
+            left: 60px;
+            width: 110px;
+            height: 61px;
+            border-radius: 20px;
+            background: rgba(0, 0, 0, 0.3);
+        }
+
+        .active {
+            /* display: none; */
+            position: absolute;
+            top: 30px;
+            left: 5px;
+            width: 100px;
+            height: 2px;
+            background: rgba(0, 0, 0, 0.3);
+        }
+
+        .vioce {
+            position: absolute;
+            /* top: 8px; */
+            width: 100px;
+            height: 2px;
+            background: #fff;
+        }
+
+        .vioce-radio {
+            position: absolute;
+            top: 50%;
+            margin-top: -10px;
+            width: 20px;
+            height: 20px;
+            /* border:2px solid green; */
+            cursor: pointer;
+        }
+
+        .vioce-radio span {
+            display: inline-block;
+            position: absolute;
+            top: 6px;
+            width: 8px;
+            height: 8px;
+            left: 92px;
+            border-radius: 50%;
+            background: #fff;
+        }
+
+        .progress {
+            position: absolute;
+            left: 50%;
+            margin-left: -150px;
+            width: 337px;
+            height: 30px;
+            /* background:red; */
+        }
+
+        .current-time,
+        .all-time {
+            width: 80px;
+            height: 30px;
+            line-height: 30px;
+            text-align: center;
+            color: #fff;
+        }
+
+        .current-time {
+            float: left;
+        }
+
+        .all-time {
+            float: right;
+        }
+
+        .pro-box {
+            position: absolute;
+            top: 50%;
+            margin-top: -1px;
+            display: inline-block;
+            width: 170px;
+            height: 2px;
+        }
+
+        .pro-bg {
+            width: 100%;
+            height: 2px;
+            background: rgba(0, 0, 0, 0.3);
+        }
+
+        .pro-active {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 8px;
+            height: 2px;
+            background: #fff;
+        }
+
+        .radio-box {
+            position: absolute;
+            right: -6px;
+            top: -9px;
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+            /* background:red;*/
+        }
+
+        .radio {
+            position: absolute;
+            left: 50%;
+            margin-left: -4px;
+            top: 50%;
+            margin-top: -4px;
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            background: #fff;
+            border-radius: 50%;
+        }
+    </style>
+    <link rel="stylesheet" href="./font_edf1ujjpqk/iconfont.css">
+</head>
+
+<body>
+    <div class="wrapper">
+        <main class="main">
+            <img src="./img/4.jpg" alt="">
+            <!-- <audio id="audio" src="./img/1.mp3"></audio> -->
+        </main>
+        <div class="tool">
+            <div class="prev"><span class="iconfont icon-shangyishou"></span></div>
+            <div class="btn"><span class="iconfont icon-bofang"></span></div>
+            <div class="next"><span class="iconfont icon-xiayishou"></span></div>
+            <div class="progress">
+                <div class="current-time"></div>
+                <div class="pro-box">
+                    <div class="pro-bg"></div>
+                    <div class="pro-active">
+                        <div class="radio-box">
+                            <span class="radio"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="all-time"></div>
+            </div>
+            <div class="volume"><span class="iconfont icon-xiaolaba"></span>
+                <div class='active-box'>
+                    <div class="active">
+                        <div class="vioce"></div>
+                        <div class="vioce-radio">
+                            <span></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <script src="./index.js"></script>
+</body>
+
+</html>
